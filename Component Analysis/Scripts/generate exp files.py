@@ -14,27 +14,27 @@ path = os.path.join(user_home, "Documents","LRI CFD","NX","EXPS","")
 #Min value, max value (inclusive) and step size 
 #parameter 1
 p1 = 'angle1'
-min1 = 90
-max1 = 110
-stp1 = 5
+min1 = 50
+max1 = 140
+stp1 = 1
 units1 = 'Degrees'
 
 #parameter 2
-p2 = 'angle2'
+p2 = ''
 min2 = 90
 max2 = 110
 stp2 = 5
 units2 = 'Degrees'
 
 #parameter 3
-p3 = 'angle3'
+p3 = ''
 min3 = 90
 max3 = 110
 stp3 = 5
 units3 = 'Degrees'
 
 #parameter 4
-p4 = 'angle4'
+p4 = ''
 min4 = 90
 max4 = 110
 stp4 = 15
