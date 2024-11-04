@@ -27,6 +27,10 @@ custom_structure = {
             'EXPS': {},
             'EXPORTS': {}
         },
+        'ANSYS': {
+            'GEOMETRY': {},
+            'SCRIPTS': {}
+        }
     },
 }
 
