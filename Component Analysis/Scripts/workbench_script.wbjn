@@ -46,7 +46,7 @@ for i in range(1):
     
     setup1.SendCommand(Command=importgeometrycommand)
     setup1.SendCommand(Command="(newline)")
-    setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Local Sizing'].Arguments.set_state({r'AddChild': r'yes',r'BOICellsPerGap': 1,r'BOICurvatureNormalAngle': 18,r'BOIExecution': r'Face Size',r'BOIFaceLabelList': [r'fins'],r'BOIGrowthRate': 1.2,r'BOIZoneorLabel': r'label',})\")")
+    setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Local Sizing'].Arguments.set_state({r'AddChild': r'yes',r'BOICellsPerGap': 1,r'BOICurvatureNormalAngle': 18,r'BOIExecution': r'Face Size',r'BOIFaceLabelList': [r'fins'],r'BOIGrowthRate': 1.1,r'BOIZoneorLabel': r'label',})\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Local Sizing'].AddChildAndUpdate(DeferUpdate=False)\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Generate the Surface Mesh'].Execute()\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Describe Geometry'].UpdateChildTasks(SetupTypeChanged=False)\")")
@@ -58,7 +58,7 @@ for i in range(1):
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Update Boundaries'].Execute()\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Create Regions'].Execute()\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Update Regions'].Execute()\")")
-    setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Boundary Layers'].Arguments.set_state({r'LocalPrismPreferences': {r'Continuous': r'Continuous',},})\")")
+    setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Boundary Layers'].Arguments.set_state({r'LocalPrismPreferences': {r'Continuous': r'Continuous',},r'NumberOfLayers': 5,r'Rate': 1.1,})\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Add Boundary Layers'].AddChildAndUpdate(DeferUpdate=False)\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Generate the Volume Mesh'].Arguments.set_state({r'VolumeFill': r'poly-hexcore',})\")")
     setup1.SendCommand(Command="(%py-exec \"workflow.TaskObject['Generate the Volume Mesh'].Execute()\")")
