@@ -1,21 +1,22 @@
 ﻿# NX 2306
 #Exported files will match naming convention of the model with the .exp file appended
-#Run by press Alt+F8 in the homescreen of NX and then selecting this .py file
+#Run by press Alt+F8 in the homescreen of NX and then selecting this .py file (may need to change extension dropdown from c to py)
+
+#Name of nx file.
+#MUST be located in "user"/documents/LRI CFD/NX/MODELS/
+modelInputName = "fullrocket.prt"
+
+
+
 
 import math
 import NXOpen
 import NXOpen.UF
 import os
-
-
-#variables to change
-
-#model file path:   (example: "C:/LRI/NX/Models/model1.prt")
 user_home = os.path.expanduser("~")
-modelInputName = "Spring_Prelim_9.29.24.1.prt"
 LRIPath = os.path.join(user_home, "Documents", "LRI CFD", "NX")
 modelpath = os.path.join(LRIPath,"MODELS",modelInputName)
-modelname = 'modelout'
+modelname = modelInputName[:-4]
 #exp folder path:   (example: "C:/LRI/NX/EXP")
 exppath = os.path.join(LRIPath, "EXPS")
 
@@ -83,16 +84,13 @@ def main() :
         theSession.DeleteUndoMark(markId9, None)
         markId10 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Export Parasolid")
 
-        parasolidExporter1.OutputFile = exportpath+"/"+modelname+"_"+expfiles[i].replace('.exp','.x_t')
+        parasolidExporter1.OutputFile = exportpath+"/"+expfiles[i][:-4]+"_"+modelname.replace('.exp','.x_t')
 
         nXObject1 = parasolidExporter1.Commit()
         theSession.DeleteUndoMark(markId10, None)
         theSession.SetUndoMarkName(markId8, "Export Parasolid")
         parasolidExporter1.Destroy()
         
-    # ----------------------------------------------
-    #   Menu: Tools->Automation->Journal->Stop Recording
-    # ----------------------------------------------
     
 if __name__ == '__main__':
     main()

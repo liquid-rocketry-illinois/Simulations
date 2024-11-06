@@ -8,11 +8,16 @@ precision = 3 #number of decimals
 
 #Step 4: Fill out parameters and steps
 #Min value, max value (inclusive) and step size 
-parameter = 'angle1'
+parameter = 'deflection_angle'
 min = 0
 max = 30
-step = 1/3
+step = 5
 units = 'Degrees'   #MilliMeter,Meter,Feet,Inch,Degrees
+
+#Inlet Velocity: (m/s)
+inletmin = 50
+inletmax = 200
+inletstep = 50
 #Step 5: Run code
 
 
@@ -43,11 +48,12 @@ def float_range(start,stop,step):
         start += step
 
 count = 0
-for i in float_range(min,max,step):
-    count += 1
-    outputpath = f'{path}{parameter}_{i}'
-    text = f"// Version:  3\n[{units}]{parameter}={i}"
-    with open(f"{outputpath}.exp",'w') as f:
-            f.write(text)
-            f.close()
+for v in float_range(inletmin,inletmax,inletstep):
+    for i in float_range(min,max,step):
+        count += 1
+        outputpath = f'{path}{v:03}m_s_{i:02}deg'
+        text = f"// Version:  3\n[{units}]{parameter}={i}"
+        with open(f"{outputpath}.exp",'w') as f:
+                f.write(text)
+                f.close()
 print(f"Succesfully created {count} files in {path}")

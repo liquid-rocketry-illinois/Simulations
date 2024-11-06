@@ -6,7 +6,8 @@ LRIPath = os.path.join(user_home, "Documents", "LRI CFD")
 parasolidpath = os.path.join(LRIPath,"NX","EXPORTS")
 parasolidfiles = [f for f in os.listdir(parasolidpath) if os.path.isfile(parasolidpath+'/'+f)]
 geometrypath = str(os.path.join(LRIPath,"ANSYS","GEOMETRY","Geom.pmdb"))#.replace('\\','\\\\')
-scriptpath = os.path.join(LRIPath,"ANSYS","SCRIPTS","fintabdiscovery.scscript")
+scriptpath = os.path.join(LRIPath,"ANSYS","SCRIPTS","fullrocket.scscript")
+generatesolutionpath = os.path.join(LRIPath,"ANSYS","SCRIPTS","generatesolution.wbjn")
 importgeometrycommand = r"""(%py-exec "workflow.TaskObject['Import Geometry'].Arguments.set_state({r'FileName': r'""" + geometrypath + r"""',r'ImportCadPreferences': {r'MaxFacetLength': 0,},r'LengthUnit': r'm',})")"""   #please do not look into this command. Idk how it works
 
 
@@ -65,15 +66,7 @@ for i in range(1):
     setup1.SendCommand(Command="(cx-use-window-id 51)(cx-set-camera-relative '(0.1657 -0.434334 0.0303355) '(0 0 0) '(0.656072 0.280648 0.500718) 0 0)")
     setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Ribbon*Frame1*Frame2(Task Page)*Table1*Table3(Solution)*PushButton1(Switch to Solution)")(cx-gui-do cx-activate-item "Question*OK")')
     
-    #setup1.SendCommand(Command="(%py-exec \"workflow.SaveWorkflow(FilePath=r'C:\\Users\\eqlewis2\\AppData\\Local\\Temp\\WB_eqlewis2_19968_14\\wbnew_files\\dp0\\FLTG\\Fluent\\FLTG_workflow_files\\FLTG.wft')\")")
-    
     setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
     setup1.SendCommand(Command="(newline)")
-    setup1.SendCommand(Command='(cx-gui-do cx-set-list-tree-selections "NavigationPane*Frame2*Table1*List_Tree2" (list "Setup|Boundary Conditions|Inlet|inlet (velocity-inlet, id=27)"))')
-    setup1.SendCommand(Command='(cx-gui-do cx-set-list-tree-selections "NavigationPane*Frame2*Table1*List_Tree2" (list "Setup|Boundary Conditions|Inlet|inlet (velocity-inlet, id=27)"))(cx-gui-do cx-activate-item "NavigationPane*Frame2*Table1*List_Tree2")')
-    setup1.SendCommand(Command="(cx-gui-do cx-set-list-tree-selections \"NavigationPane*Frame2*Table1*List_Tree2\" (list \"Setup|Boundary Conditions|Inlet|inlet (velocity-inlet, id=27)\"))(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 1)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 2)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 3)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 4)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 5)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 6)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 7)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 8)(cx-gui-do cx-activate-tab-index \"Velocity Inlet*Frame2*Frame2\" 0)(cx-gui-do cx-enable-apply-button \"Velocity Inlet\")(cx-gui-do cx-set-expression-entry \"Velocity Inlet*Frame2*Frame2*Frame1(Momentum)*Table1*Table9*ExpressionEntry1(Velocity Magnitude)\" '(\"200\" . 0))(cx-gui-do cx-activate-item \"Velocity Inlet*PanelButtons*PushButton1(OK)\")")
-    setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Velocity Inlet*PanelButtons*PushButton2(Cancel)")')
-    setup1.SendCommand(Command="(cx-gui-do cx-set-expression-entry \"Ribbon*Frame1*Frame6(Solution)*Table1*Table3(Run Calculation)*Table6*ExpressionEntry3(Time Scale Factor)\" '(\"1\" . 0))(cx-gui-do cx-set-integer-entry \"Ribbon*Frame1*Frame6(Solution)*Table1*Table3(Run Calculation)*Table6*IntegerEntry16(No  of Iterations)\" 300)(cx-gui-do cx-activate-item \"Ribbon*Frame1*Frame6(Solution)*Table1*Table3(Run Calculation)*Table6*IntegerEntry16(No  of Iterations)\")")
-    setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Ribbon*Frame1*Frame6(Solution)*Table1*Table3(Initialization)*PushButton6(Initialize)")')
-    setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Ribbon*Frame1*Frame6(Solution)*Table1*Table3(Run Calculation)*PushButton7(Calculate)")')
-    setup1.SendCommand(Command='(cx-gui-do cx-activate-item "Information*OK")')
+
+    RunScript(FilePath=generatesolutionpath)
